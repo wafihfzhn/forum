@@ -1,69 +1,71 @@
-<div class="row">
-	<div class="col-lg-6 offset-lg-3">
-		<div class="threads">
-			<h5><b> <%= @thread.title %> </b></h5>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-6 offset-lg-3">
+			<div class="threads">
+				<h5><b> <%= @thread.title %> </b></h5>
 
-			<div class="time">
-				
-				<%= I18n.l(@thread.created_at.to_date) %> oleh <%= @thread.user.name %>
+				<div class="time">
+					
+					<%= I18n.l(@thread.created_at.to_date) %> oleh <%= @thread.user.name %>
+				</div>
+
+				<div class="content">
+					<%= @thread.content %>
+				</div>
+
+				<% if user_signed_in? %>
+					<% if policy(@thread).edit? %>
+						<div class="btn-edit">
+							<%= link_to 'Edit', edit_forum_thread_path(@thread), class: 'btn btn-primary btn-action btn-edit' %>
+					<% end %>
+
+					<% if policy(@thread).destroy? %>
+							<%= link_to 'Delete', forum_thread_path(@thread),method: :delete, class: 'btn btn-danger btn-action btn-delete' %> 
+						</div>
+					<% end %>
+				<% end %>
 			</div>
 
-			<div class="content">
-				<%= @thread.content %>
-			</div>
+			<% if @thread.forum_posts.any? %>
+				<% @posts.each do |p| %>
+					<div class="threads-komentar">
+						<div class="time">
+							
+							<%= I18n.l(p.created_at.to_date) %> oleh <%= p.user.name %>
+						</div>
 
-			<% if user_signed_in? %>
-				<% if policy(@thread).edit? %>
-					<div class="btn-edit">
-						<%= link_to 'Edit', edit_forum_thread_path(@thread), class: 'btn btn-primary btn-action btn-edit' %>
+						<div class="content">
+							<%= p.content %>
+						</div>
+					</div>
 				<% end %>
 
-				<% if policy(@thread).destroy? %>
-						<%= link_to 'Delete', forum_thread_path(@thread),method: :delete, class: 'btn btn-danger btn-action btn-delete' %> 
+				<%= will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, list_classes: %w(pagination justify-content-center),next_label: '&raquo;',previous_label: '&laquo;' %>
+
+			<% else %>
+				<div class="text-center text-tanggapan"> Jadilah yang pertama melakukan tanggapan </div>
+			<% end %>
+
+			<% if @post.errors.any? %>
+				<div class="alert alert-danger alert-thread alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<% @post.errors.full_messages.each do |error| %>
+						<span><li class="li-thread"> <%= error %> </li></span><br>
+					<% end %>
+				</div>
+			<% end %>
+			
+			<% if user_signed_in? %>
+				<%= form_for [@thread, @post] do |f| %>
+					<div class="form-group thread-tanggapan">
+						<%= f.text_area :content, rows: 6, placeholder: "Masukkan tanggapan anda", class: 'form-control' %>
+					</div>
+
+					<div class="text-center tanggapi">
+						<%= f.submit 'Tanggapi', class: 'btn btn-primary' %>
 					</div>
 				<% end %>
 			<% end %>
 		</div>
-
-		<% if @thread.forum_posts.any? %>
-			<% @posts.each do |p| %>
-				<div class="threads-komentar">
-					<div class="time">
-						
-						<%= I18n.l(p.created_at.to_date) %> oleh <%= p.user.name %>
-					</div>
-
-					<div class="content">
-						<%= p.content %>
-					</div>
-				</div>
-			<% end %>
-
-			<%= will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, list_classes: %w(pagination justify-content-center),next_label: '&raquo;',previous_label: '&laquo;' %>
-
-		<% else %>
-			<div class="text-center text-tanggapan"> Jadilah yang pertama melakukan tanggapan </div>
-		<% end %>
-
-		<% if @post.errors.any? %>
-			<div class="alert alert-danger alert-thread alert-dismissible">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<% @post.errors.full_messages.each do |error| %>
-					<span><li class="li-thread"> <%= error %> </li></span><br>
-				<% end %>
-			</div>
-		<% end %>
-		
-		<% if user_signed_in? %>
-			<%= form_for [@thread, @post] do |f| %>
-				<div class="form-group thread-tanggapan">
-					<%= f.text_area :content, rows: 6, placeholder: "Masukkan tanggapan anda", class: 'form-control' %>
-				</div>
-
-				<div class="text-center">
-					<%= f.submit 'Tanggapi', class: 'btn btn-primary' %>
-				</div>
-			<% end %>
-		<% end %>
 	</div>
 </div>
