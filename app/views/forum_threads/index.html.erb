@@ -1,0 +1,52 @@
+<div class="row">
+	<div class="col-lg-6 offset-lg-3">
+
+		<% if user_signed_in? %>
+			<div class='text-center'> 
+				<%= link_to 'Buat Diskusi', new_forum_thread_path, :class => "btn btn-primary btn-thread" %>
+			</div>
+		<% end %>
+
+		<% @threads.each do |t| %>
+			<div class="thread">
+				<h5><b> <%= link_to t.title.titleize, forum_thread_path(t) %> </b> 
+					<% if t.sticky_order != 100 %>
+						<i class="fas fa-thumbtack"></i>
+					<% end %>
+				</h5>
+
+				<div class="time">
+		
+					<%= I18n.l(t.created_at.to_date) %> oleh <%= t.user.name %>
+				</div>
+
+				<div class="content">
+					<%= truncate t.content, length: 200 %>
+				</div>
+
+				<% if user_signed_in? %>
+					<% if policy(t).pinit? %>
+						<% if t.sticky_order == 100 %>
+							<div class="action">
+								<%= link_to 'Pin It', pinit_forum_thread_path(t), class: 'btn btn-primary btn-action', method: :put %> 
+							</div>
+						<% else %>
+							<div class="action">
+								<%= link_to 'UnPin', unpin_forum_thread_path(t), class: 'btn btn-primary btn-action', method: :put %> 
+							</div>
+						<% end %>
+					<% end %>
+				<% end %>
+
+				<div class="count">
+					<%= t.forum_posts_count %> Obrolan
+				</div>
+
+				<div style='clear: both'></div>
+			</div>
+		<% end %>
+
+		<%= will_paginate @threads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, list_classes: %w(pagination justify-content-center),next_label: '&raquo;',previous_label: '&laquo;' %>
+
+	</div>
+</div>

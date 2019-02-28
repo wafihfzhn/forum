@@ -1,0 +1,11 @@
+a:hover {
+	text-decoration: none;
+}
+
+.alert-dismissible .close {
+	padding: 5px 1.25rem;
+}
+
+.alert {
+	margin-bottom: 0;
+}

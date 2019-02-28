@@ -1,0 +1,27 @@
+<div class="navbar-light bg-light-navbar">
+  <nav class="navbar navbar-expand-lg container">
+    <b> <%= link_to "FORUM BERTANYA", root_path, class: 'navbar-logo navbar-brand' %> </b>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item dropdown">
+            <li class="username"> <b> <%= user_signed_in? ? current_user.name : '' %> </b> </li>
+            <% if user_signed_in? %>
+              <li> <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-secondary" %> </li>
+            <% else %>
+              <li class="daftar-navbar"> <%= link_to 'Daftar', new_user_registration_path, class: "btn btn-secondary" %> </li>
+              <li> <%= link_to 'Login', new_user_session_path, class: "btn btn-secondary" %> </li>
+            <% end %>            
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

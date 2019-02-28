@@ -1,0 +1,117 @@
+.time {
+	margin-bottom: 8px;
+	font-size: 14px;
+	color: #696969;
+}
+
+.content {
+	margin-bottom: 0px;
+}
+
+.count {
+	padding-top: 15px;
+	float:right;
+	font-size: 14px;
+}
+
+.thread {
+	padding: 10px 15px;
+	margin-bottom: 20px;
+	border: 0.5px solid #ced4da;
+	text-align: justify;
+	border-radius: 10px;
+}
+
+.threads {
+	padding: 10px 15px;
+	text-align: justify;
+}
+
+.threads-komentar {
+	margin: 10px 0;
+	padding: 10px 15px;
+	border: 0.5px solid #ced4da;
+	border-radius: 10px;
+}
+
+.text-tanggapan {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.btn-thread {
+	margin-bottom: 18px;
+}
+
+.alert-thread {
+	padding: 5px 20px;
+	margin-bottom: 10px;
+}
+
+.action {
+	float: left;
+}
+
+.li-thread {
+	margin-bottom: -25px;
+}
+
+.fas {
+    font-family: "Font Awesome 5 Free";
+    font-size: 13px;
+}
+
+.action {
+	float: left;
+	margin-top: 10px;
+}
+
+.btn-action {
+	padding: 0px 5px;
+}
+
+.btn-edit {
+	margin-top: 5px;
+}
+
+.btn-delete {
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+.username {
+	padding: 7px 25px 7px;
+	color: white;
+}
+
+.daftar-navbar {
+	padding-right: 20px;
+}
+
+.bg-light-navbar {
+	background-color: #007bff;
+}
+
+.navbar-light .navbar-brand {
+	color: white;
+}
+
+.navbar-light .navbar-brand:hover {
+	color: white;
+}
+
+.btn-secondary {
+	background-color: white;
+	color: #007bff;
+	border-color: white;
+}
+
+.btn-secondary:hover {
+	background-color: white;
+	color: #007bff;
+	border-color: white;
+}
+
+.signup {
+	padding: 10px 0;
+}
